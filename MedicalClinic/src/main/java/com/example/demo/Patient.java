@@ -13,7 +13,7 @@ public class Patient {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long patient_id;
     private String name;
-    private int age;
+    private Integer age = null;
     private String gender;
     private String address;
     private String phone_number;
@@ -37,11 +37,11 @@ public class Patient {
 		this.name = name;
 	}
 
-	public int getAge() {
+	public Integer getAge() {
 		return age;
 	}
 
-	public void setAge(int age) {
+	public void setAge(Integer age) {
 		this.age = age;
 	}
 

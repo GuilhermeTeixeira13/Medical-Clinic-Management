@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-	<title>Medical Clinic</title>
-	<meta charset="UTF-8">
-	<link rel="stylesheet" type="text/css" href="/css/index.css">
-</head>
-<body>
-	<!-- Os botões -->
-	<button>Botão 1</button>
-	<button>Botão 2</button>
-	<button>Botão 3</button>
-	<button>Botão 4</button>
-</body>
+	<html xmlns:th="http://www.thymeleaf.org">
+		<head>
+			<title>Medical Clinic</title>
+			<meta charset="UTF-8">
+			<link rel="stylesheet" type="text/css" href="/css/index.css">
+		</head>
+		<body>
+			<!-- Os botões -->
+			<button><a th:href="@{/showPatients}">Patients</a></button>
+			<button>Botão 2</button>
+			<button>Botão 3</button>
+			<button>Botão 4</button>
+		</body>
 </html>

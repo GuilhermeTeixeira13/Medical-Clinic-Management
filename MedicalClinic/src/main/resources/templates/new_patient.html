@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Patient management</title>
+</head>
+
+<body>
+	<div>
+ 		<h1>Patient Management System</h1>
+ 		<hr>
+ 			<h2>Save Patient</h2>
+ 			<form action="#" th:action="@{/savePatient}" th:object="${newPatient}" method="POST">
+ 				<input type="text" th:field="*{name}" placeholder="Name" >
+ 
+ 				<input type="text" th:field="*{age}" placeholder="Age" >
+ 				
+ 				<input type="text" th:field="*{gender}" placeholder="Gender" >
+ 				
+ 				<input type="text" th:field="*{address}" placeholder="Address" >
+ 				
+ 				<input type="text" th:field="*{phone_number}" placeholder="Phone number" >
+ 
+	 			<button type="submit" > Save Patient</button>
+ 		
+ 			</form>
+ 		<hr>
+ 		<a th:href="@{/showPatients}"> Back to Patient List</a>
+	</div>
+</body>
+</html>

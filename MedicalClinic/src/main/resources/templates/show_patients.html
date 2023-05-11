@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="ISO-8859-1">
+		<title>Patients</title>
+		<script th:inline="javascript">
+			$(function() {
+				var timeoutId;
+				$('#searchField').on('input', function() {
+					clearTimeout(timeoutId);
+					timeoutId = setTimeout(function() {
+						var query = $('#searchField').val();
+						$.get('/searchPatients', {query: query}, function(data) {
+							$('#patientList').html(data);
+						});
+					}, 500);
+				});
+			});
+		</script>
+	</head>
+
+	<body>
+		<div>
+	 		<h1> Patient List </h1>
+	 		<form th:action="@{/showPatients}" method="get">
+				<input type="text" name="query" placeholder="Search by name">
+				<button type="submit">Search</button>
+			</form>
+	 		<a th:href="@{/showNewPatientForm}"> Add Patient </a>
+	 		<table border="1" class="table table-striped table-responsive-md">
+	 			<thead>
+	 				<tr>
+	 					<th> ID </th>
+	 					<th> Name </th>
+						<th> Age </th>
+	 					<th> Gender </th>
+	 					<th> Address </th>
+	 					<th> Phone </th>
+	 					<th> Actions </th>
+	 				</tr>
+	 			</thead>
+			    <tbody>
+	 				<tr th:each="patient : ${ListPatients}">
+	 					<td th:text="${patient.patient_id}"></td>
+	 					<td th:text="${patient.name}"></td>
+	 					<td th:text="${patient.age}"></td>
+	 					<td th:text="${patient.gender}"></td>
+	 					<td th:text="${patient.address}"></td>
+	 					<td th:text="${patient.phone_number}"></td>
+	 					<td>
+	 						<a th:href="@{/showUpdatePatientForm/{id}(id=${patient.patient_id})}" >Update</a>
+	 						<a th:href="@{/deletePatient/{id}(id=${patient.patient_id})}" >Delete</a>
+	 					</td>
+	 				</tr>
+	 			</tbody>
+	 		</table>
+		</div>
+	</body>
+</html>
