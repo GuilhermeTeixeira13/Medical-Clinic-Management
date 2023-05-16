@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Patient Registration</title>
+</head>
+<body>
+  <h1>Patient Registration</h1>
+  <form action="#" th:action="@{/savePatient}" th:object="${new_patient}" method="POST">
+    <label for="name">Name:</label>
+    <input type="text" th:field="*{name}" placeholder="Name" required><br><br>
+
+    <label for="email">Email:</label>
+    <input type="text" th:field="*{email}" placeholder="Email" required><br><br>
+
+    <label for="password">Password:</label>
+    <input type="text" th:field="*{password}" placeholder="Password" required><br><br>
+
+    <label for="age">Age:</label>
+    <input type="text" th:field="*{age}" placeholder="Age" required><br><br>
+
+    <label for="gender">Gender:</label>
+	<select th:field="*{gender}" name="gender" required>
+	  <option value="male">Male</option>
+	  <option value="female">Female</option>
+	  <option value="other">Other</option>
+	</select><br><br>
+
+
+    <label for="address">Address:</label>
+    <input type="text" th:field="*{address}" placeholder="Address" required><br><br>
+
+    <label for="phone_number">Phone Number:</label>
+    <input type="text" th:field="*{phone_number}" placeholder="Phone Number" required><br><br>
+
+    <input type="submit" value="Register">
+  </form>
+</body>
+</html>
