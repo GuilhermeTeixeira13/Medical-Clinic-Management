@@ -142,15 +142,33 @@ public class MainController {
 
 	    return "markAppointment";
 	}
+	
+	@GetMapping("/seeAppointments/{patientId}")
+	public String seeAppointments(
+	    @PathVariable("patientId") long patientId,
+	    Model model
+	) {
+	    model.addAttribute("patientId", patientId);
+	    
+	    List<Appointment> appointments = appointmentRepository.findByPatientId(patientId);;
+
+	    model.addAttribute("ListAppointments", appointments);
+
+	    return "seeAppointments";
+	}
+	
+	@GetMapping("/deleteAppointment/{id}/{patientId}")
+	public String deletePatient(@PathVariable(value = "id") Long id, @PathVariable(value = "patientId") long patientId) {
+		appointmentRepository.deleteById(id);
+		return "redirect:/seeAppointments/" + patientId;
+	}
 
 	@PostMapping("/saveAppointment")
 	public String Appointment(@ModelAttribute("new_appointment") Appointment newAppointment, @RequestParam("patientId") Long patientId) {
 		
 		Patient patient = getPatientById(patientId);
 	    newAppointment.setPatient(patient);
-	    
-	    newAppointment.setTreatments(null);
-	    
+
 	    appointmentRepository.save(newAppointment);
 	    return "redirect:/indexPatient/" + patientId;
 	}

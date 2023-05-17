@@ -11,7 +11,7 @@ import jakarta.persistence.OneToMany;
 public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long patient_id;
+    private Long id;
     private String email;
     private String password;
     private String name;
@@ -24,11 +24,11 @@ public class Patient {
     private List<Appointment> appointments;
 
 	public Long getPatient_id() {
-		return patient_id;
+		return id;
 	}
 
 	public void setPatient_id(Long patient_id) {
-		this.patient_id = patient_id;
+		this.id = patient_id;
 	}
 	
 	public String getEmail() {
