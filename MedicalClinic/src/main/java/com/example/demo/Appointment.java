@@ -17,7 +17,6 @@ public class Appointment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long appointment_id;
     private LocalDateTime start_time;
-    private LocalDateTime end_time;
     
     @ManyToOne
     @JoinColumn(name = "patient_id")
@@ -44,14 +43,6 @@ public class Appointment {
 
 	public void setStart_time(LocalDateTime start_time) {
 		this.start_time = start_time;
-	}
-
-	public LocalDateTime getEnd_time() {
-		return end_time;
-	}
-
-	public void setEnd_time(LocalDateTime end_time) {
-		this.end_time = end_time;
 	}
 
 	public Patient getPatient() {

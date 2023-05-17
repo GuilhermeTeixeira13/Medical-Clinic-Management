@@ -1,6 +1,8 @@
 package com.example.demo;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -12,9 +14,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import myinputs.Ler;
 
 @Controller // This means that this class is a Controller
 public class MainController {
@@ -69,12 +74,12 @@ public class MainController {
 	@PostMapping("/saveDoctor")
 	public String saveDoctor (@ModelAttribute("new_doctor") Doctor d ) {
 		doctorRepository.save(d);
-		return "redirect:/indexDoctor";
+		long doctorId = d.getDoctor_id();
+		return "redirect:/indexDoctor/" + doctorId;
 	}
 	
 	@GetMapping("/indexDoctor/{doctorId}")
 	public String indexDoctor(@PathVariable("doctorId") long doctorId, Model model) {
-	    // Use the patientId as needed
 	    model.addAttribute("doctorId", doctorId);
 	    return "indexDoctor";
 	}
@@ -121,12 +126,42 @@ public class MainController {
 	
 	@GetMapping("/indexPatient/{patientId}")
 	public String indexPatient(@PathVariable("patientId") long patientId, Model model) {
-	    // Use the patientId as needed
 	    model.addAttribute("patientId", patientId);
 	    return "indexPatient";
 	}
 
+	@GetMapping("/markAppointment/{patientId}")
+	public String markAppointment(
+	    @PathVariable("patientId") long patientId,
+	    Model model
+	) {
+	    model.addAttribute("patientId", patientId);
+
+	    List<Doctor> doctors = doctorRepository.findAll();
+	    model.addAttribute("doctors", doctors);
+
+	    return "markAppointment";
+	}
+
+	@PostMapping("/saveAppointment")
+	public String Appointment(@ModelAttribute("new_appointment") Appointment newAppointment, @RequestParam("patientId") Long patientId) {
+		
+		Patient patient = getPatientById(patientId);
+	    newAppointment.setPatient(patient);
+	    
+	    newAppointment.setTreatments(null);
+	    
+	    appointmentRepository.save(newAppointment);
+	    return "redirect:/indexPatient/" + patientId;
+	}
 	
+	
+	public Patient getPatientById(Long id) {
+	    Optional<Patient> optionalPatient = patientRepository.findById(id);
+	    return optionalPatient.orElse(null);
+	}
+
+	/*
 	@GetMapping("/showPatients")
 	public String showPatients(Model model, @RequestParam(name = "query", required = false) String query) {
 		List<Patient> patients;
@@ -161,5 +196,5 @@ public class MainController {
 		model.addAttribute("patient", p);
 		return "update_patient";
 	}
-
+	*/
 }
