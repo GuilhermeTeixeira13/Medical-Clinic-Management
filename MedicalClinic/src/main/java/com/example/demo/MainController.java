@@ -84,6 +84,35 @@ public class MainController {
 	    return "indexDoctor";
 	}
 	
+	@GetMapping("/seeAppointmentsdoctor/{doctorId}")
+	public String seeAppointmentsdoctor(
+	    @PathVariable("doctorId") long doctorId,
+	    Model model
+	) {
+	    model.addAttribute("doctorId", doctorId);
+	    
+	    List<Appointment> appointments = appointmentRepository.findByPatientId(doctorId);
+
+	    model.addAttribute("ListAppointments", appointments);
+
+	    return "seeAppointmentsdoctor";
+	}
+	
+	@GetMapping("/seetreatments/{appointmentsId}")
+	public String seeTreatments(
+	    @PathVariable("appointmentsId") long appointmentsId,
+	    Model model
+	) {
+	    model.addAttribute("appointmentsId", appointmentsId);
+	    
+	    List<Treatment> treatments = treatmentRepository.findByAppointmentId(appointmentsId);
+
+	    model.addAttribute("Listtreatments", treatments);
+
+	    return "seetreatments";
+	}
+	
+	
 	@GetMapping("/goToLoginPatient")
 	public String goToLoginPatient(Model model) {
 	    return "goToLoginPatient";
