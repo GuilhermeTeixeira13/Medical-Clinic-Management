@@ -5,9 +5,9 @@
 			<meta charset="UTF-8">
 		</head>
 		<body>
-    	<h1 th:text="'Patient ID: ' + ${patientId}"></h1>
+    		<h1 th:text="'Patient ID: ' + ${patientId}"></h1>
     		<button><a th:href="@{'/markAppointment/' + ${patientId}}">Mark an Appointment</a></button>
     		<button><a th:href="@{'/seeAppointments/' + ${patientId}}">See my Appointments</a></button>
-    		<button><a th:href="@{'/seeStatistics/' + ${patientId}}">Statistics</a></button>
+    		<button><a th:href="@{'/statsPatient/' + ${patientId}}">Statistics</a></button>
 		</body>
 </html>

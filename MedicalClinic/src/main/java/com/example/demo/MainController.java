@@ -150,7 +150,7 @@ public class MainController {
 	) {
 	    model.addAttribute("patientId", patientId);
 	    
-	    List<Appointment> appointments = appointmentRepository.findByPatientId(patientId);;
+	    List<Appointment> appointments = appointmentRepository.findByPatientId(patientId);
 
 	    model.addAttribute("ListAppointments", appointments);
 
@@ -171,6 +171,31 @@ public class MainController {
 
 	    appointmentRepository.save(newAppointment);
 	    return "redirect:/indexPatient/" + patientId;
+	}
+	
+	
+	@GetMapping("/statsPatient/{patientId}")
+	public String statsPatient(
+			@PathVariable("patientId") long patientId,
+			Model model
+	) { 
+		List<Object[]> doctorAppointments = appointmentRepository.findDoctorsByAppointmentCount(patientId);
+
+	    List<Doctor> doctors = new ArrayList<>();
+	    List<Long> appointmentCounts = new ArrayList<>();
+
+	    for (Object[] doctorAppointment : doctorAppointments) {
+	        Doctor doctor = (Doctor) doctorAppointment[0];
+	        Long appointmentCount = (Long) doctorAppointment[1];
+
+	        doctors.add(doctor);
+	        appointmentCounts.add(appointmentCount);
+	    }
+
+	    model.addAttribute("doctors", doctors);
+	    model.addAttribute("appointmentCounts", appointmentCounts);
+	    model.addAttribute("patientId", patientId);
+	    return "statsPatient";
 	}
 	
 	
