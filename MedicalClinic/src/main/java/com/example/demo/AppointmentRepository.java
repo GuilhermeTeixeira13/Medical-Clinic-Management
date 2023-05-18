@@ -13,10 +13,9 @@ public interface AppointmentRepository extends CrudRepository<Appointment, Long>
 	
 	@Query("SELECT a.doctor, COUNT(a) as appointmentCount " +
 		       "FROM Appointment a " +
-		       "WHERE a.patient.id = :patientId " +
 		       "GROUP BY a.doctor " +
 		       "ORDER BY appointmentCount DESC")
-		List<Object[]> findDoctorsByAppointmentCount(@Param("patientId") Long patientId);
+		List<Object[]> getNumberOfAppointmentsForEachDoctor();
 
 
 }
