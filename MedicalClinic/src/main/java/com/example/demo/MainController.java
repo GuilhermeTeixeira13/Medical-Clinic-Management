@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -202,20 +203,27 @@ public class MainController {
 	    return "redirect:/indexPatient/" + patientId;
 	}
 	
-	
 	@GetMapping("/statsPatient/{patientId}")
 	public String statsPatient(
-			@PathVariable("patientId") long patientId,
+			Model model,
+			@PathVariable("patientId") long patientId
+	) {
+	    return "statsPatient";
+	}
+	
+	
+	@GetMapping("/numberAppointmentsForEachDoctor")
+	public String numberAppointmentsForEachDoctor(
 			Model model
 	) { 
-		List<Object[]> doctorAppointments = appointmentRepository.findDoctorsByAppointmentCount(patientId);
+		List<Object[]> doctorAndAppointmentsCount = appointmentRepository.getNumberOfAppointmentsForEachDoctor();
 
 	    List<Doctor> doctors = new ArrayList<>();
 	    List<Long> appointmentCounts = new ArrayList<>();
 
-	    for (Object[] doctorAppointment : doctorAppointments) {
-	        Doctor doctor = (Doctor) doctorAppointment[0];
-	        Long appointmentCount = (Long) doctorAppointment[1];
+	    for (Object[] doctorAppointmentCount : doctorAndAppointmentsCount) {
+	        Doctor doctor = (Doctor) doctorAppointmentCount[0];
+	        Long appointmentCount = (Long) doctorAppointmentCount[1];
 
 	        doctors.add(doctor);
 	        appointmentCounts.add(appointmentCount);
@@ -223,8 +231,7 @@ public class MainController {
 
 	    model.addAttribute("doctors", doctors);
 	    model.addAttribute("appointmentCounts", appointmentCounts);
-	    model.addAttribute("patientId", patientId);
-	    return "statsPatient";
+	    return "numberAppointmentsForEachDoctor";
 	}
 	
 	
