@@ -49,7 +49,7 @@ public class MainController {
 	@PostMapping("/loginDoctor")
 	public String loginDoctor(@RequestParam("email") String email, @RequestParam("password") String password) {
 	    if (checkCredentialsDoctor(email, password)) {
-	        long doctorId = doctorRepository.findByEmail(email).getDoctor_id();
+	        long doctorId = doctorRepository.findByEmail(email).getId();
 	        return "redirect:/indexDoctor/" + doctorId;
 	    } else {
 	        return "redirect:/goToLoginDoctor";
@@ -75,7 +75,7 @@ public class MainController {
 	@PostMapping("/saveDoctor")
 	public String saveDoctor (@ModelAttribute("new_doctor") Doctor d ) {
 		doctorRepository.save(d);
-		long doctorId = d.getDoctor_id();
+		long doctorId = d.getId();
 		return "redirect:/indexDoctor/" + doctorId;
 	}
 	
@@ -92,7 +92,7 @@ public class MainController {
 	) {
 	    model.addAttribute("doctorId", doctorId);
 	    
-	    List<Appointment> appointments = appointmentRepository.findByPatientId(doctorId);
+	    List<Appointment> appointments = appointmentRepository.findByDoctorId(doctorId);
 
 	    model.addAttribute("ListAppointments", appointments);
 

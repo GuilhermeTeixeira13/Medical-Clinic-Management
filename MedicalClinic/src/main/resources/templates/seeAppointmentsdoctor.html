@@ -12,19 +12,17 @@
 	 				<tr>
 	 					<th> ID </th>
 	 					<th> Start Time </th>
-						<th> Doctor </th>
-	 					<th> Treatments </th>
+						<th> Patient </th>
 	 					<th> Actions </th>
 	 				</tr>
 	 			</thead>
 			    <tbody>
 	 				<tr th:each="appointment : ${ListAppointments}">
-	 					<td th:text="${appointment.appointment_id}"></td>
+	 					<td th:text="${appointment.id}"></td>
 	 					<td th:text="${appointment.start_time}"></td>
 	 					<td th:text="${appointment.patient.name}"></td>
-	 					<td th:text="${appointment.treatments}"></td>
 	 					<td>
-	 						<a th:href="@{/seetreatments/{id}/(id=${appointment.appointment_id})}">seetreatments</a>	
+	 						<a th:href="@{/seetreatments/{id}(id=${appointment.id})}">seetreatments</a>	
 	 					</td>
 	 				</tr>
 	 			</tbody>
