@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 
 public interface AppointmentRepository extends CrudRepository<Appointment, Long> {
 	List<Appointment> findByPatientId(Long patientId);
+	List<Appointment> findByDoctorId(Long doctorId);
 	
 	@Query("SELECT a.doctor, COUNT(a) as appointmentCount " +
 		       "FROM Appointment a " +

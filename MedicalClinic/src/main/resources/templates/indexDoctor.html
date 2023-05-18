@@ -5,7 +5,7 @@
 			<meta charset="UTF-8">
 		</head>
 		<body>
-			<h1 th:text="'Doctor ID: ' + ${doctorId}"></h1>
-			<button>Button</button>
+    		<h1 th:text="'Doctor ID: ' + ${doctorId}"></h1>
+    		<button><a th:href="@{'/seeAppointmentsdoctor/' + ${doctorId}}">See my Appointments</a></button>
 		</body>
 </html>

@@ -49,7 +49,7 @@ public class MainController {
 	@PostMapping("/loginDoctor")
 	public String loginDoctor(@RequestParam("email") String email, @RequestParam("password") String password) {
 	    if (checkCredentialsDoctor(email, password)) {
-	        long doctorId = doctorRepository.findByEmail(email).getDoctor_id();
+	        long doctorId = doctorRepository.findByEmail(email).getId();
 	        return "redirect:/indexDoctor/" + doctorId;
 	    } else {
 	        return "redirect:/goToLoginDoctor";
@@ -75,7 +75,7 @@ public class MainController {
 	@PostMapping("/saveDoctor")
 	public String saveDoctor (@ModelAttribute("new_doctor") Doctor d ) {
 		doctorRepository.save(d);
-		long doctorId = d.getDoctor_id();
+		long doctorId = d.getId();
 		return "redirect:/indexDoctor/" + doctorId;
 	}
 	
@@ -84,6 +84,35 @@ public class MainController {
 	    model.addAttribute("doctorId", doctorId);
 	    return "indexDoctor";
 	}
+	
+	@GetMapping("/seeAppointmentsdoctor/{doctorId}")
+	public String seeAppointmentsdoctor(
+	    @PathVariable("doctorId") long doctorId,
+	    Model model
+	) {
+	    model.addAttribute("doctorId", doctorId);
+	    
+	    List<Appointment> appointment = appointmentRepository.findByDoctorId(doctorId);
+
+	    model.addAttribute("ListAppointments", appointment);
+
+	    return "seeAppointmentsdoctor";
+	}
+	
+	@GetMapping("/seetreatments/{appointmentid}")
+	public String seeTreatments(
+	    @PathVariable("appointmentid") long appointmentid,
+	    Model model
+	) {
+	    model.addAttribute("appointmentid", appointmentid);
+	    
+	    List<Treatment> treatments = treatmentRepository.findByAppointmentId(appointmentid);
+
+	    model.addAttribute("Listtreatments", treatments);
+
+	    return "seetreatments";
+	}
+	
 	
 	@GetMapping("/goToLoginPatient")
 	public String goToLoginPatient(Model model) {
