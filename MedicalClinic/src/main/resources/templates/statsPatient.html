@@ -6,15 +6,6 @@
 		</head>
 		<body>
     		<h1 th:text="'Patient ID: ' + ${patientId}"></h1>
-    		<table>
-		        <tr>
-		            <th>Doctor Name</th>
-		            <th>Appointment Counts</th>
-		        </tr>
-		        <tr th:each="doctor, count : ${doctors}">
-		            <td th:text="${doctor.name}"></td>
-		            <td th:text="${appointmentCounts[count.index]}"></td>
-		        </tr>
-		    </table>
+    		<button><a th:href="@{'/numberAppointmentsForEachDoctor'}">Number of Appointments for each doctor</a></button>
 		</body>
 </html>

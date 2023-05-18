@@ -15,7 +15,7 @@ import jakarta.persistence.OneToMany;
 public class Appointment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long appointment_id;
+    private Long id;
     private LocalDateTime start_time;
     
     @ManyToOne
@@ -30,11 +30,11 @@ public class Appointment {
     private List<Treatment> treatments;
 
 	public Long getAppointment_id() {
-		return appointment_id;
+		return id;
 	}
 
 	public void setAppointment_id(Long appointment_id) {
-		this.appointment_id = appointment_id;
+		this.id = appointment_id;
 	}
 
 	public LocalDateTime getStart_time() {
