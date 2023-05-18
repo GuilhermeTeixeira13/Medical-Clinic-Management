@@ -92,21 +92,21 @@ public class MainController {
 	) {
 	    model.addAttribute("doctorId", doctorId);
 	    
-	    List<Appointment> appointments = appointmentRepository.findByDoctorId(doctorId);
+	    List<Appointment> appointment = appointmentRepository.findByDoctorId(doctorId);
 
-	    model.addAttribute("ListAppointments", appointments);
+	    model.addAttribute("ListAppointments", appointment);
 
 	    return "seeAppointmentsdoctor";
 	}
 	
-	@GetMapping("/seetreatments/{appointmentsId}")
+	@GetMapping("/seetreatments/{appointmentid}")
 	public String seeTreatments(
-	    @PathVariable("appointmentsId") long appointmentsId,
+	    @PathVariable("appointmentid") long appointmentid,
 	    Model model
 	) {
-	    model.addAttribute("appointmentsId", appointmentsId);
+	    model.addAttribute("appointmentid", appointmentid);
 	    
-	    List<Treatment> treatments = treatmentRepository.findByAppointmentId(appointmentsId);
+	    List<Treatment> treatments = treatmentRepository.findByAppointmentId(appointmentid);
 
 	    model.addAttribute("Listtreatments", treatments);
 
