@@ -22,7 +22,11 @@
 	 					<td th:text="${appointment.appointment_id}"></td>
 	 					<td th:text="${appointment.start_time}"></td>
 	 					<td th:text="${appointment.doctor.name}"></td>
-	 					<td th:text="${appointment.treatments}"></td>
+	 					<td>
+						  <span th:each="treatment : ${appointment.treatments}">
+						    <span th:text="${treatment.treatment_id}"></span>
+						  </span>
+						</td>
 	 					<td>
 	 						<a th:href="@{/deleteAppointment/{id}/{patientId}(id=${appointment.appointment_id}, patientId=${patientId})}">Delete</a>	
 	 					</td>
