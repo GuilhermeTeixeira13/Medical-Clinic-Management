@@ -3,6 +3,7 @@
 		<head>
 			<title>See Appointments</title>
 			<meta charset="UTF-8">
+			<link rel="stylesheet" type="text/css" href="/css/seeAppointments.css">
 		</head>
 		<body>
 		    <h1 th:text="'Patient ID: ' + ${patientId}"></h1>
@@ -18,20 +19,31 @@
 	 				</tr>
 	 			</thead>
 			    <tbody>
-	 				<tr th:each="appointment : ${ListAppointments}">
-	 					<td th:text="${appointment.appointment_id}"></td>
-	 					<td th:text="${appointment.start_time}"></td>
-	 					<td th:text="${appointment.doctor.name}"></td>
-	 					<td>
-						  <span th:each="treatment : ${appointment.treatments}">
-						    <span th:text="${treatment.treatment_id}"></span>
-						  </span>
-						</td>
-	 					<td>
-	 						<a th:href="@{/deleteAppointment/{id}/{patientId}(id=${appointment.appointment_id}, patientId=${patientId})}">Delete</a>	
-	 					</td>
-	 				</tr>
-	 			</tbody>
+				  <tr th:each="appointment, row : ${ListAppointments}">
+				    <td th:text="${appointment.appointment_id}"></td>
+				    <td th:id="'start-time-' + ${row.index}" th:text="${appointment.start_time}"></td>
+				    <td th:inline="javascript" style="display: none;">
+				      <script>
+				        var startDateTime = document.getElementById('start-time-' + /*[[${row.index}]]*/).innerText;
+				        var dateObj = new Date(startDateTime);
+				        var formattedDate = dateObj.toISOString().split('T')[0];
+				        var hours = dateObj.getHours().toString().padStart(2, '0');
+				        var minutes = dateObj.getMinutes().toString().padStart(2, '0');
+				        var formattedTime = hours + ':' + minutes;
+				        document.getElementById('start-time-' + /*[[${row.index}]]*/).innerText = 'Date: ' + formattedDate + ' Time: ' + formattedTime;
+				      </script>
+				    </td>
+				    <td th:text="${appointment.doctor.name}"></td>
+				    <td>
+				      <span th:each="treatment : ${appointment.treatments}">
+				        <span th:text="${treatment.treatment_id}"></span>
+				      </span>
+				    </td>
+				    <td>
+				      <a th:href="@{/deleteAppointment/{id}/{patientId}(id=${appointment.appointment_id}, patientId=${patientId})}">Delete</a>	
+				    </td>
+				  </tr>
+				</tbody>
 	 		</table>
 		</body>
 </html>
