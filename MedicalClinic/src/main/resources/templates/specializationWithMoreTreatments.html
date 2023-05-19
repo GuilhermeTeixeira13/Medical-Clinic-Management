@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+	<html xmlns:th="http://www.thymeleaf.org">
+		<head>
+			<title>Number of Appointments per Doctor</title>
+			<meta charset="UTF-8">
+		</head>
+		<body>
+    		<h1>Specializations with More Treatments</h1>
+		    <table>
+		        <tr>
+		            <th>Specialization</th>
+		            <th>Treatment Count</th>
+		        </tr>
+		        <th:block th:each="index : ${#numbers.sequence(0, specializationNames.size()-1)}">
+		            <tr>
+		                <td th:text="${specializationNames[__${index}__]}"></td>
+		                <td th:text="${specializationCounts[__${index}__]}"></td>
+		            </tr>
+		        </th:block>
+		    </table>
+		</body>
+</html>

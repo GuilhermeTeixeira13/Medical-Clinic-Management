@@ -18,5 +18,5 @@ public interface AppointmentRepository extends CrudRepository<Appointment, Long>
 		       "ORDER BY appointmentCount DESC")
 		List<Object[]> getNumberOfAppointmentsForEachDoctor();
 
-
+	
 }

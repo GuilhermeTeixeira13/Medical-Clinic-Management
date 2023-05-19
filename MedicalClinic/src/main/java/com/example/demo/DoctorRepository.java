@@ -12,4 +12,7 @@ public interface DoctorRepository extends CrudRepository<Doctor, Integer> {
 	Doctor findByEmail(String email);
 	
 	List<Doctor> findAll();
+	
+	 @Query("SELECT d.specialization, COUNT(t) as treatmentCount FROM Doctor d JOIN d.appointments a JOIN a.treatments t GROUP BY d.specialization ORDER BY treatmentCount DESC")
+	 List<Object[]> findSpecializationWithMoreTreatments();
 }
