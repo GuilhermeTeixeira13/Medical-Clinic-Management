@@ -238,11 +238,11 @@ public class MainController {
 	public String specializationWithMoreTreatments(
 			Model model
 	) { 
-		List<Object[]> specializations = doctorRepository.findSpecializationWithMoreTreatments();
+		List<Object[]> specializationsAndTreatments = doctorRepository.findSpecializationWithMoreTreatments();
 	    List<String> specializationNames = new ArrayList<>();
 	    List<Long> specializationCounts = new ArrayList<>();
 
-	    for (Object[] specialization : specializations) {
+	    for (Object[] specialization : specializationsAndTreatments) {
 	        specializationNames.add((String) specialization[0]);
 	        specializationCounts.add((Long) specialization[1]);
 	    }
