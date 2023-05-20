@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ADD treatment</title>
+</head>
+<body>
+	<h1 th:text="'Appointment ID: ' + ${appointmentid}"></h1>
+  	<h1>ADD treatment</h1>
+  	<form action="#" th:action="@{/savetreatment/{appointmentid}(appointmentid=${appointmentid})}" th:object="${new_treatment}" method="POST">
+    <label for="Description">Description:</label>
+    <input type="text" th:field="*{description}" placeholder="Description" required><br><br>
+
+    <label for="Cost">Cost:</label>
+    <input type="text" th:field="*{cost}" placeholder="Cost" required><br><br>
+
+    <input type="hidden" id="appointmentid" name="appointmentid" th:value="${appointmentid}">
+    <input type="submit" value="Register">
+  </form>
+</body>
+</html>

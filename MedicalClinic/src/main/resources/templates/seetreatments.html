@@ -22,11 +22,11 @@
                 <td th:text="${treatment.description}"></td>
                 <td th:text="${treatment.cost}"></td>
                 <td>
-                    <a th:href="@{/seetreatments/{id}(id=${appointmentid})}">See Treatments</a>
+                    <a th:href="@{/deleteTreatment/{id}/{appointmentid}(id=${treatment.treatment_id}, appointmentid=${appointmentid})}">Delete</a>
                 </td>
             </tr>
         </tbody>
     </table>
-    <button><a th:href="@{/goToRegisterPatient/{id}(id=${appointmentid})}">Register treatment</a></button>
+    <button><a th:href="@{/addtreatment/{appointmentid}(appointmentid=${appointmentid})}">Register treatment</a></button>
 </body>
 </html>

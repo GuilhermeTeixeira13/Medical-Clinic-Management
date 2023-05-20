@@ -101,19 +101,47 @@ public class MainController {
 	
 	@GetMapping("/seetreatments/{appointmentid}")
 	public String seeTreatments(
-	    @PathVariable("appointmentid") long appointmentid,
-	    Model model
-	) {
-	    model.addAttribute("appointmentid", appointmentid);
-	    
-	    List<Treatment> treatments = treatmentRepository.findByAppointmentId(appointmentid);
+		    @PathVariable("appointmentid") long appointmentid,
+		    Model model
+		) {
+		    model.addAttribute("appointmentid", appointmentid);
+		    
+		    List<Treatment> treatments = treatmentRepository.findByAppointmentId(appointmentid);
 
-	    model.addAttribute("Listtreatments", treatments);
+		    model.addAttribute("Listtreatments", treatments);
 
-	    return "seetreatments";
+		    return "seetreatments";
+		}
+	
+	@GetMapping("/addtreatment/{appointmentid}")
+	public String addtreatment(@PathVariable("appointmentid") long appointmentid,
+		    Model model
+			) {
+		model.addAttribute("appointmentid", appointmentid);
+		Treatment t = new Treatment();
+		model.addAttribute("new_treatment", t);
+		return "addtreatment";
 	}
 	
+	@PostMapping("/savetreatment/{appointmentid}")
+	public String saveTreatment(
+	    @PathVariable("appointmentid") String appointmentid,
+	    @ModelAttribute("new_treatment") Treatment newTreatment
+	) {
+	    long appointmentId = Long.parseLong(appointmentid);
+	    Appointment appointment = getAppointmentById(appointmentId);
+	    newTreatment.setAppointment(appointment);
+	    treatmentRepository.save(newTreatment);
+
+	    return "redirect:/seetreatments/" + appointmentid;
+	}
 	
+	@GetMapping("/deleteTreatment/{id}/{appointmentid}")
+	public String deleteTreatment(@PathVariable(value = "id") Long id, @PathVariable(value = "appointmentid") long appointmentid) {
+		treatmentRepository.deleteById(id);
+		return "redirect:/seetreatments/" + appointmentid;
+	}
+
 	@GetMapping("/goToLoginPatient")
 	public String goToLoginPatient(Model model) {
 	    return "goToLoginPatient";
@@ -238,6 +266,11 @@ public class MainController {
 	public Patient getPatientById(Long id) {
 	    Optional<Patient> optionalPatient = patientRepository.findById(id);
 	    return optionalPatient.orElse(null);
+	}
+	
+	public Appointment getAppointmentById(Long id) {
+	    Optional<Appointment> optionalAppointment = appointmentRepository.findById(id);
+	    return optionalAppointment.orElse(null);
 	}
 
 	/*
