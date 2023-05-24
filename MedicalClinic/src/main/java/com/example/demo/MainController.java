@@ -151,7 +151,7 @@ public class MainController {
 	    return "statsdoctor";
 	}
 	@GetMapping("/Numberofappointmentsinagivenperiodoftime/{doctorId}")
-	public String getNumberofappointmentsforagivenday(Model model, @PathVariable Long doctorId) {
+	public String getNumberofappointmentsinagivenperiodoftime(Model model, @PathVariable Long doctorId) {
 	    model.addAttribute("doctorId", doctorId);
 	    return "Numberofappointmentsinagivenperiodoftime";
 	}
@@ -167,10 +167,32 @@ public class MainController {
 	}
 
 	@GetMapping("/Numberofappointmentsinagivenperiodoftimeresult/{doctorId}/{appointmentCount}")
-	public String getNumberofappointmentsforagivendayresult(Model model, @PathVariable Long doctorId, @PathVariable Integer appointmentCount) {
+	public String getNumberofappointmentsinagivenperiodoftimeresult(Model model, @PathVariable Long doctorId, @PathVariable Integer appointmentCount) {
 	    model.addAttribute("doctorId", doctorId);
 	    model.addAttribute("appointmentCount", appointmentCount);
 	    return "Numberofappointmentsinagivenperiodoftimeresult";
+	}
+	
+	@GetMapping("/Numberofappointmentsforagivenday/{doctorId}")
+	public String getNumberofappointmentsforagivenday(Model model, @PathVariable Long doctorId) {
+	    model.addAttribute("doctorId", doctorId);
+	    return "Numberofappointmentsforagivenday";
+	}
+	
+	@PostMapping("/search1")
+	public String search1(Model model, @RequestParam("doctorId") Long doctorId, @RequestParam("start_time") LocalDateTime start_time) {
+	    Integer appointmentCount = appointmentRepository.findAppointmentCountByDoctorAndDate(doctorId, start_time.withHour(0).withMinute(0).withSecond(0).withNano(0),start_time.withHour(23).withMinute(59).withSecond(59).withNano(999999999));
+	    model.addAttribute("appointmentCount", appointmentCount);
+	    model.addAttribute("doctorId", doctorId);
+	    model.addAttribute("start_time", start_time);
+	    return "redirect:/Numberofappointmentsforagivendayresult/"+doctorId+"/"+appointmentCount;
+	}
+
+	@GetMapping("/Numberofappointmentsforagivendayresult/{doctorId}/{appointmentCount}")
+	public String getNumberofappointmentsforagivendayresult(Model model, @PathVariable Long doctorId, @PathVariable Integer appointmentCount) {
+	    model.addAttribute("doctorId", doctorId);
+	    model.addAttribute("appointmentCount", appointmentCount);
+	    return "Numberofappointmentsforagivendayresult";
 	}
 
 	@GetMapping("/goToLoginPatient")
