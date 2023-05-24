@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import java.util.List;
@@ -140,6 +141,36 @@ public class MainController {
 	public String deleteTreatment(@PathVariable(value = "id") Long id, @PathVariable(value = "appointmentid") long appointmentid) {
 		treatmentRepository.deleteById(id);
 		return "redirect:/seetreatments/" + appointmentid;
+	}
+	
+	@GetMapping("/statsdoctor/{doctorId}")
+	public String statsdoctor(
+			Model model,
+			@PathVariable("doctorId") long doctorId
+	) {
+	    return "statsdoctor";
+	}
+	@GetMapping("/Numberofappointmentsinagivenperiodoftime/{doctorId}")
+	public String getNumberofappointmentsforagivenday(Model model, @PathVariable Long doctorId) {
+	    model.addAttribute("doctorId", doctorId);
+	    return "Numberofappointmentsinagivenperiodoftime";
+	}
+	
+	@PostMapping("/search")
+	public String search(Model model, @RequestParam("doctorId") Long doctorId, @RequestParam("start_time") LocalDateTime start_time,@RequestParam("end_time") LocalDateTime end_time) {
+	    Integer appointmentCount = appointmentRepository.findAppointmentCountByDoctorAndDate(doctorId, start_time,end_time);
+	    model.addAttribute("appointmentCount", appointmentCount);
+	    model.addAttribute("doctorId", doctorId);
+	    model.addAttribute("start_time", start_time);
+	    model.addAttribute("end_time", end_time);
+	    return "redirect:/Numberofappointmentsinagivenperiodoftimeresult/"+doctorId+"/"+appointmentCount;
+	}
+
+	@GetMapping("/Numberofappointmentsinagivenperiodoftimeresult/{doctorId}/{appointmentCount}")
+	public String getNumberofappointmentsforagivendayresult(Model model, @PathVariable Long doctorId, @PathVariable Integer appointmentCount) {
+	    model.addAttribute("doctorId", doctorId);
+	    model.addAttribute("appointmentCount", appointmentCount);
+	    return "Numberofappointmentsinagivenperiodoftimeresult";
 	}
 
 	@GetMapping("/goToLoginPatient")

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Number of appointments for a given day</title>
+</head>
+<body>
+	<h1 th:text="'Doctor ID: ' + ${doctorId}"></h1>
+    <h1>give day</h1>
+
+   <form action="/search" method="post">
+    <label for="Date">Date:</label>
+    <input type="datetime-local" id="start_time" name="start_time" required><br><br>
+    <input type="datetime-local" id="end_time" name="end_time" required><br><br>
+    <input type="hidden" id="doctorId" name="doctorId" th:value="${doctorId}">
+    <input type="submit" value="Search" />
+	</form>
+</body>
+</html>

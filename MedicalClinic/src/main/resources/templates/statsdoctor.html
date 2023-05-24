@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+	<html xmlns:th="http://www.thymeleaf.org">
+		<head>
+			<title>Stats Doctor</title>
+			<meta charset="UTF-8">
+		</head>
+		<body>
+    		<h1 th:text="'Doctor ID: ' + ${doctorId}"></h1>
+    		<button><a th:href="@{'/Numberofappointmentsforagivenday/'+ ${doctorId}}">Number of appointments for a given day</a></button>
+    		<button><a th:href="@{'/Numberofappointmentsinagivenperiodoftime/'+ ${doctorId}}">Number of appointments in a given period of time</a></button>
+		</body>
+</html>
