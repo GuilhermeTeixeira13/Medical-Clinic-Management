@@ -3,9 +3,11 @@
 		<head>
 			<title>Doctor</title>
 			<meta charset="UTF-8">
+			<link rel="stylesheet" type="text/css" href="/css/indexDoctor.css">
 		</head>
 		<body>
     		<h1 th:text="'Doctor ID: ' + ${doctorId}"></h1>
     		<button><a th:href="@{'/seeAppointmentsdoctor/' + ${doctorId}}">See my Appointments</a></button>
+    		<button><a th:href="@{'/statsdoctor/' + ${doctorId}}">Statistics</a></button>
 		</body>
 </html>

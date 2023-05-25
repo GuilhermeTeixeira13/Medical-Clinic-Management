@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
@@ -16,7 +17,11 @@ public interface AppointmentRepository extends CrudRepository<Appointment, Long>
 		       "FROM Appointment a " +
 		       "GROUP BY a.doctor " +
 		       "ORDER BY appointmentCount DESC")
-		List<Object[]> getNumberOfAppointmentsForEachDoctor();
+	List<Object[]> getNumberOfAppointmentsForEachDoctor();
+	@Query("SELECT COUNT(a) as appointment_Count " +
+			"FROM Appointment a " +
+			"WHERE a.doctor.id = :doctorId AND a.start_time BETWEEN :startDateTime AND :endDateTime")
+			Integer findAppointmentCountByDoctorAndDate(@Param("doctorId") Long doctorId, @Param("startDateTime") LocalDateTime startDateTime, @Param("endDateTime") LocalDateTime endDateTime);
 
 	
 }
