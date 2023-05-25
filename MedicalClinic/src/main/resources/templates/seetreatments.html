@@ -2,8 +2,31 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>See Appointments</title>
-    <meta charset="UTF-8"
+    <meta charset="UTF-8">
 	<link rel="stylesheet" type="text/css" href="/css/tables.css">
+	<style>
+		button {
+      display: block;
+      margin: 20px auto;
+      padding: 10px 20px;
+      background-color: #3498db;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    
+    button a {
+      text-decoration: none;
+      color: #fff;
+    }
+    
+    button:hover {
+      background-color: #3498db;
+    }
+	
+	</style>
 </head>
 <body>
     <h1 th:text="'Appointment ID: ' + ${appointmentid}"></h1>
