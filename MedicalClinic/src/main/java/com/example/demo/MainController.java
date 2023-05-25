@@ -315,6 +315,25 @@ public class MainController {
 	    return "numberAppointmentsForEachDoctor";
 	}
 	
+	@GetMapping("/specializationWithMoreTreatments")
+	public String specializationWithMoreTreatments(
+			Model model
+	) { 
+		List<Object[]> specializationsAndTreatments = doctorRepository.findSpecializationWithMoreTreatments();
+	    List<String> specializationNames = new ArrayList<>();
+	    List<Long> specializationCounts = new ArrayList<>();
+
+	    for (Object[] specialization : specializationsAndTreatments) {
+	        specializationNames.add((String) specialization[0]);
+	        specializationCounts.add((Long) specialization[1]);
+	    }
+
+	    model.addAttribute("specializationNames", specializationNames);
+	    model.addAttribute("specializationCounts", specializationCounts);
+
+	    return "specializationWithMoreTreatments";
+	}
+	
 	
 	public Patient getPatientById(Long id) {
 	    Optional<Patient> optionalPatient = patientRepository.findById(id);

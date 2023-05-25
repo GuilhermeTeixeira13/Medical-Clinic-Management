@@ -3,6 +3,7 @@
 		<head>
 			<title>Mark Appointment</title>
 			<meta charset="UTF-8">
+			<link rel="stylesheet" type="text/css" href="/css/markAppointment.css">
 		</head>
 		<body>
 		    <h1 th:text="'Patient ID: ' + ${patientId}"></h1>
@@ -22,7 +23,7 @@
 		        
 		        <input type="hidden" id="patientId" name="patientId" th:value="${patientId}">
 		        
-		        <input type="submit" value="Save">
+		        <input type="submit" value="Save Appointment">
 		    </form>
 		</body>
 </html>

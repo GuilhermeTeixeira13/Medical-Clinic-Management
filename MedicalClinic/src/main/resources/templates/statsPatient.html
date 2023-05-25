@@ -3,9 +3,11 @@
 		<head>
 			<title>Stats Patient</title>
 			<meta charset="UTF-8">
+			<link rel="stylesheet" type="text/css" href="/css/statsPatient.css">
 		</head>
 		<body>
     		<h1 th:text="'Patient ID: ' + ${patientId}"></h1>
     		<button><a th:href="@{'/numberAppointmentsForEachDoctor'}">Number of Appointments for each doctor</a></button>
+    		<button><a th:href="@{'/specializationWithMoreTreatments'}">Specialization with more treatments</a></button>
 		</body>
 </html>

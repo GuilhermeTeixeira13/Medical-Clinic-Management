@@ -23,5 +23,5 @@ public interface AppointmentRepository extends CrudRepository<Appointment, Long>
 			"WHERE a.doctor.id = :doctorId AND a.start_time BETWEEN :startDateTime AND :endDateTime")
 			Integer findAppointmentCountByDoctorAndDate(@Param("doctorId") Long doctorId, @Param("startDateTime") LocalDateTime startDateTime, @Param("endDateTime") LocalDateTime endDateTime);
 
-
+	
 }
