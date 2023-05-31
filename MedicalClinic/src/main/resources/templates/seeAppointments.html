@@ -36,7 +36,7 @@
 				    <td th:text="${appointment.doctor.name}"></td>
 				    <td>
 				      <span th:each="treatment : ${appointment.treatments}">
-				        <span th:text="${treatment.treatment_id}"></span>
+				        <span th:text="${treatment.description}"></span>
 				      </span>
 				    </td>
 				    <td>
